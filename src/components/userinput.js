@@ -1,375 +1,370 @@
 import React,{useState} from "react";
-import Convert from "./convert";
+import Convert from "./Fetch";
 
 const Userinput=()=>{
-    const [amount,updateamount]=useState(0)
-    const [from,updatefrom]=useState("")
-    const [to,updateto]=useState("")  
+    const [Amount,updateAmount]=useState(0)
+    const [From,updateFrom]=useState("INR")
+    const [To,updateTo]=useState("INR")  
+    const [Send,UpdateSend]=useState(false)
+    const options=[          
+        'AFN',
+        'AED',
+        'ALL',
+        'AMD',
+        'ANG',
+        'AOA',
+        'ARS',
+        'AUD',
+        'AWG',
+        'AZN',
+        'BAM', 'BBD','BDT','BGN','BHD','BIF','BMD','BND', 'BOB','BRL','BSD','BTC','BTN',
+        'BWP',
+        'BYN',
+        'BYR',
+        'BZD',
+        'CAD',
+        'CDF',
+        'CHF',
+        'CLF',
+        'CLP',
+        'CNY',
+        'COP',
+        'CRC',
+        'CUC',
+        'CUP',
+        'CVE',
+        'CZK',
+        'DJF',
+        'DKK',
+        'DOP',
+        'DZD',
+        'EGP',
+        'ERN',
+        'ETB','EUR',
+        'FJD',
+        'FKP',
+        'GBP',
+        'GEL',
+        'GGP',
+        'GHS',
+        'GIP',
+        'GMD',
+        'GNF',
+        'GTQ',
+        'GYD',
+        'HKD',
+        'HNL',
+        'HRK',
+        'HTG',
+        'HUF',
+        'IDR',
+        'ILS',
+        'IMP',
+        'INR',
+        'IQD',
+        'IRR',
+        'ISK',
+        'JEF','JMD', 'JOD', 'JYP', 'KES', 'KGS','KHR','KMF','KPW',
+        'KTW', 'KWD',
+        'KYD', 'KZR', 'LAK','LBP',
+        'LKR', 'LRD',
+        'LSL', 'LTL',
+        'LVL',
+        'LYD',
+        'MAD',
+        'MDL',
+        'MGA',
+        'MKD',
+        'MMK',
+        'MNT',
+        'MOP',
+        'MRO',
+        'MUR','MVR',
+        'MWK',
+        'MXN',
+        'MYR',
+        'MZN',
+        'NAD',
+        'NGN','NIO',
+        'NOK','NPR',
+        'NZD', 'OMR',
+        'PAB',
+        'PEN',
+        'PGK',
+        'PHP',
+        'PKR',
+        'PLN',
+        'PYG',
+        'QAR',
+        'RON',
+        'RSD',
+        'RUB',
+        'RWF',
+        'SAR',
+        'SBD',
+        'SCR',
+        'SDG',
+        'SEK',
+        'SGD',
+        'SHP',
+        'SLE',
+        'SLL','SOS','SRD',
+        'STD',
+        'SVC',
+        'SYP',
+        'SZL',
+        'THB',
+        'TJS',
+        'TMT',
+        'TND',
+        'TOP',
+        'TRY', 'TTD','TWD','TZS','UAH','UGX','USD','UYU',
+'UZS', 'VEF','VES','VND', 'VUV',
+        'WST', 'XAF',
+        'XAG',
+        'XAU','XCD',
+        'XDR','XOF',
+        'XPF','YER',
+        'ZAR',
+        'ZMK','ZMW',
+        'ZWL'            
+     ]
+    //to send by onclick
+    const [amount,Sendamount]=useState(0)
+    const [from,Sendfrom]=useState("")
+    const [to,Sendto]=useState("")
+    
+
+   const Clear_Fields=()=>{
+    updateAmount("")
+    updateFrom("")
+    updateTo("")
+   }
    
-    const inputamount=(e)=>{updateamount(e.target.value)}
-    const Clicked=(e)=>{
+    const Submited=(e)=>{
         e.preventDefault()
-        console.log(from)
-        console.log(amount)
+        UpdateSend(true)
+        
+        if(Amount.length===0 ){
+            UpdateSend(false)
+            alert("Enter th filed")
+            Clear_Fields()
+        }
+        else{
+             Sendamount(Amount);
+             Sendfrom(From)
+             Sendto(To)
+             
+           UpdateSend(true)
+           Clear_Fields()
+        }
+        
+              
     }
     return(
         <>
         <form>
-            <input placeholder="Enter the amount" value={amount} onChange={inputamount}/>
-            <label>Convert From:</label>
-            <select value={from} onChange={(e)=>updatefrom(e.target.value)}>
-                <option>AED</option>
-                <option >AFN</option>
-                <option >ALL</option>
-                <option >AMD</option>
-                <option >ANG</option>
-                <option >AOA</option>
-                <option >ARS</option>
-                <option >AUD</option>
-                <option >AWG</option>
-                <option >AZN</option>
-                <option >BAM</option>
-                <option >BBD</option>
-                <option >BDT</option>
-                <option >BGN</option>
-                <option >BHD</option>
-                <option >BIF</option>
-                <option >BMD</option>
-                <option >BND</option>
-                <option >BOB</option>
-                <option >BRL</option>
-                <option >BSD</option>
-                <option >BTC</option>
-                <option >BTN</option>
-                <option >BWP</option>
-                <option >BYN</option>
-                <option >BYR</option>
-                <option >BZD</option>
-                <option >CAD</option>
-                <option >CDF</option>
-                <option >CHF</option>
-                <option >CLF</option>
-                <option >CLP</option>
-                <option >CNY</option>
-                <option >COP</option>
-                <option >CRC</option>
-                <option >CUC</option>
-                <option >CUP</option>
-                <option >CVE</option>
-                <option >CZK</option>
-                <option >DJF</option>
-                <option >DKK</option>
-                <option >DOP</option>
-                <option >DZD</option>
-                <option >EGP</option>
-                <option >ERN</option>
-                <option >ETB</option>
-                <option >EUR</option>
-                <option >FJD</option>
-                <option >FKP</option>
-                <option >GBP</option>
-                <option >GEL</option>
-                <option >GGP</option>
-                <option >GHS</option>
-                <option >GIP</option>
-                <option >GMD</option>
-                <option >GNF</option>
-                <option >GTQ</option>
-                <option >GYD</option>
-                <option >HKD</option>
-                <option >HNL</option>
-                <option >HRK</option>
-                <option >HTG</option>
-                <option >HUF</option>
-                <option >IDR</option>
-                <option >ILS</option>
-                <option >IMP</option>
-                <option >INR</option>
-                <option >IQD</option>
-                <option >IRR</option>
-                <option >ISK</option>
-                <option >JEF</option>
-                <option >JMD</option>
-                <option >JOD</option>
-                <option >JYP</option>
-                <option >KES</option>
-                <option >KGS</option>
-                <option >KHR</option>
-                <option >KMF</option>
-                <option >KPW</option>
-                <option >KTW</option>
-                <option >KWD</option>
-                <option >KYD</option>
-                <option >KZR</option>
-                <option >LAK</option>
-                <option >LBP</option>
-                <option >LKR</option>
-                <option >LRD</option>
-                <option >LSL</option>
-                <option >LTL</option>
-                <option >LVL</option>
-                <option >LYD</option>
-                <option >MAD</option>
-                <option >MDL</option>
-                <option >MGA</option>
-                <option >MKD</option>
-                <option >MMK</option>
-                <option >MNT</option>
-                <option >MOP</option>
-                <option >MRO</option>
-                <option >MUR</option>
-                <option >MVR</option>
-                <option >MWK</option>
-                <option >MXN</option>
-                <option >MYR</option>
-                <option >MZN</option>
-                <option >NAD</option>
-                <option >NGN</option>
-                <option >NIO</option>
-                <option >NOK</option>
-                <option >NPR</option>
-                <option >NZD</option>
-                <option >OMR</option>
-                <option >PAB</option>
-                <option >PEN</option>
-                <option >PGK</option>
-                <option >PHP</option>
-                <option >PKR</option>
-                <option >PLN</option>
-                <option >PYG</option>
-                <option >QAR</option>
-                <option >RON</option>
-                <option >RSD</option>
-                <option >RUB</option>
-                <option >RWF</option>
-                <option >SAR</option>
-                <option >SBD</option>
-                <option >SCR</option>
-                <option >SDG</option>
-                <option >SEK</option>
-                <option >SGD</option>
-                <option >SHP</option>
-                <option >SLE</option>
-                <option >SLL</option>
-                <option >SOS</option>
-                <option >SRD</option>
-                <option >STD</option>
-                <option >SVC</option>
-                <option >SYP</option>
-                <option >SZL</option>
-                <option >THB</option>
-                <option >TJS</option>
-                <option >TMT</option>
-                <option >TND</option>
-                <option >TOP</option>
-                <option >TRY</option>
-                <option >TTD</option>
-                <option >TWD</option>
-                <option >TZS</option>
-                <option >UAH</option>
-                <option >UGX</option>
-                <option >USD</option>
-                <option >UYU</option>
-                <option >UZS</option>
-                <option >VEF</option>
-                <option >VES</option>
-                <option >VND</option>
-                <option >VUV</option>
-                <option >WST</option>
-                <option >XAF</option>
-                <option >XAG</option>
-                <option >XAU</option>
-                <option >XCD</option>
-                <option >XDR</option>
-                <option >XOF</option>
-                <option >XPF</option>
-                <option >YER</option>
-                <option >ZAR</option>
-                <option >ZMK</option>
-                <option >ZMW</option>
-                <option >ZWL</option>
-        
-               
+            <input type="number" placeholder="Enter the amount" value={Amount} onClick={Clear_Fields}onChange={(e)=>{updateAmount(e.target.value)}}/>
+            <label>Convert To:</label>
+            
+            <select value={From} onChange={(e)=>updateFrom(e.target.value)}>
+            {
+                    options.map((values,index)=>{
+                       return <option key={index}>{values}</option>
+
+                    })
+                }                                                   
+           
             </select>
             <label>Change To:</label>
-            <select value={to} onChange={(e)=>updateto(e.target.value)}>
-                <option>AED</option>
-                <option >AFN</option>
-                <option >ALL</option>
-                <option >AMD</option>
-                <option >ANG</option>
-                <option >AOA</option>
-                <option >ARS</option>
-                <option >AUD</option>
-                <option >AWG</option>
-                <option >AZN</option>
-                <option >BAM</option>
-                <option >BBD</option>
-                <option >BDT</option>
-                <option >BGN</option>
-                <option >BHD</option>
-                <option >BIF</option>
-                <option >BMD</option>
-                <option >BND</option>
-                <option >BOB</option>
-                <option >BRL</option>
-                <option >BSD</option>
-                <option >BTC</option>
-                <option >BTN</option>
-                <option >BWP</option>
-                <option >BYN</option>
-                <option >BYR</option>
-                <option >BZD</option>
-                <option >CAD</option>
-                <option >CDF</option>
-                <option >CHF</option>
-                <option >CLF</option>
-                <option >CLP</option>
-                <option >CNY</option>
-                <option >COP</option>
-                <option >CRC</option>
-                <option >CUC</option>
-                <option >CUP</option>
-                <option >CVE</option>
-                <option >CZK</option>
-                <option >DJF</option>
-                <option >DKK</option>
-                <option >DOP</option>
-                <option >DZD</option>
-                <option >EGP</option>
-                <option >ERN</option>
-                <option >ETB</option>
-                <option >EUR</option>
-                <option >FJD</option>
-                <option >FKP</option>
-                <option >GBP</option>
-                <option >GEL</option>
-                <option >GGP</option>
-                <option >GHS</option>
-                <option >GIP</option>
-                <option >GMD</option>
-                <option >GNF</option>
-                <option >GTQ</option>
-                <option >GYD</option>
-                <option >HKD</option>
-                <option >HNL</option>
-                <option >HRK</option>
-                <option >HTG</option>
-                <option >HUF</option>
-                <option >IDR</option>
-                <option >ILS</option>
-                <option >IMP</option>
-                <option >INR</option>
-                <option >IQD</option>
-                <option >IRR</option>
-                <option >ISK</option>
-                <option >JEF</option>
-                <option >JMD</option>
-                <option >JOD</option>
-                <option >JYP</option>
-                <option >KES</option>
-                <option >KGS</option>
-                <option >KHR</option>
-                <option >KMF</option>
-                <option >KPW</option>
-                <option >KTW</option>
-                <option >KWD</option>
-                <option >KYD</option>
-                <option >KZR</option>
-                <option >LAK</option>
-                <option >LBP</option>
-                <option >LKR</option>
-                <option >LRD</option>
-                <option >LSL</option>
-                <option >LTL</option>
-                <option >LVL</option>
-                <option >LYD</option>
-                <option >MAD</option>
-                <option >MDL</option>
-                <option >MGA</option>
-                <option >MKD</option>
-                <option >MMK</option>
-                <option >MNT</option>
-                <option >MOP</option>
-                <option >MRO</option>
-                <option >MUR</option>
-                <option >MVR</option>
-                <option >MWK</option>
-                <option >MXN</option>
-                <option >MYR</option>
-                <option >MZN</option>
-                <option >NAD</option>
-                <option >NGN</option>
-                <option >NIO</option>
-                <option >NOK</option>
-                <option >NPR</option>
-                <option >NZD</option>
-                <option >OMR</option>
-                <option >PAB</option>
-                <option >PEN</option>
-                <option >PGK</option>
-                <option >PHP</option>
-                <option >PKR</option>
-                <option >PLN</option>
-                <option >PYG</option>
-                <option >QAR</option>
-                <option >RON</option>
-                <option >RSD</option>
-                <option >RUB</option>
-                <option >RWF</option>
-                <option >SAR</option>
-                <option >SBD</option>
-                <option >SCR</option>
-                <option >SDG</option>
-                <option >SEK</option>
-                <option >SGD</option>
-                <option >SHP</option>
-                <option >SLE</option>
-                <option >SLL</option>
-                <option >SOS</option>
-                <option >SRD</option>
-                <option >STD</option>
-                <option >SVC</option>
-                <option >SYP</option>
-                <option >SZL</option>
-                <option >THB</option>
-                <option >TJS</option>
-                <option >TMT</option>
-                <option >TND</option>
-                <option >TOP</option>
-                <option >TRY</option>
-                <option >TTD</option>
-                <option >TWD</option>
-                <option >TZS</option>
-                <option >UAH</option>
-                <option >UGX</option>
-                <option >USD</option>
-                <option >UYU</option>
-                <option >UZS</option>
-                <option >VEF</option>
-                <option >VES</option>
-                <option >VND</option>
-                <option >VUV</option>
-                <option >WST</option>
-                <option >XAF</option>
-                <option >XAG</option>
-                <option >XAU</option>
-                <option >XCD</option>
-                <option >XDR</option>
-                <option >XOF</option>
-                <option >XPF</option>
-                <option >YER</option>
-                <option >ZAR</option>
-                <option >ZMK</option>
-                <option >ZMW</option>
-                <option >ZWL</option>
+            <select value={To} onChange={(e)=>updateTo(e.target.value)}>
+                {
+                    options.map((values,index)=>{
+                       return <option key={index}>{values}</option>
+
+                    })
+                }
+                             
+                                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
         
-               
+                */}
             </select>
 
         </form>
-        <button onClick={Clicked}>Click</button>
-        <Convert base={from}/>
+        <button onClick={Submited}>Click</button>
+        {
+            Send?
+            <Convert amount={amount} base={from} to={to}/>
+            :
+            ""
+        }
         </>
     )
 }
